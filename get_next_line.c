@@ -6,7 +6,7 @@
 /*   By: csantacr <csantacr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:52:43 by csantacr          #+#    #+#             */
-/*   Updated: 2023/08/14 18:38:45 by csantacr         ###   ########.fr       */
+/*   Updated: 2023/08/14 20:32:34 by csantacr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static char	*get_stash(int fd, char *stash)
 	buffer = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
 	if (!buffer)
 		return (0);
-	readed = 1; // es prescindible esta línea?
-	while (!ft_strchr(stash, '\n') && readed != 0) // para qué es necesario el readed != 0?
+	readed = 1;
+	while (!ft_strchr(stash, '\n') && readed != 0)
 	{
 		readed = read(fd, buffer, BUFFER_SIZE);
 		if (readed == -1)
@@ -32,20 +32,20 @@ static char	*get_stash(int fd, char *stash)
 			free(buffer);
 			return (0);
 		}
-		// buffer[readed] = '\0'; // ésto no debería hacer falta al usar calloc?
+		buffer[readed] = '\0';
 		stash = ft_strjoin(stash, buffer);
 	}
 	free(buffer);
 	return (stash);
 }
 
-static char *get_line(char *stash)
+static char	*get_line(char *stash)
 {
 	char	*line;
 	int		i;
 
 	i = 0;
-	if (!stash[i])	// o !stash porque es un puntero e i=0(ya va a la primera posición)
+	if (!stash[i])
 		return (0);
 	while (stash[i] != '\n' && stash[i] != '\0')
 		i++;
@@ -63,7 +63,7 @@ static char *get_line(char *stash)
 	return (line);
 }
 
-static char *update_stash(char *stash)
+static char	*update_stash(char *stash)
 {
 	char	*ustash;
 	int		i;
@@ -93,7 +93,7 @@ char	*get_next_line(int fd)
 	static char	*stash;
 	char		*line;
 
-	if (BUFFER_SIZE <= 0 || fd < 0) // || read(fd, buffer, 0) < 0;
+	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (NULL);
 	stash = get_stash(fd, stash);
 	if (!stash)
@@ -101,25 +101,4 @@ char	*get_next_line(int fd)
 	line = get_line(stash);
 	stash = update_stash(stash);
 	return (line);
-}
-
-int main(void)
-{
-	char *filename;
-	int fd;
-	int lineas;
-	char	*line;
-	
-	lineas = 7;
-	filename = "test.txt";
-	fd = open(filename, O_RDONLY);
-	while (lineas > 0)
-	{
-		line = get_next_line(fd);
-		printf("line: %s", line);
-		free(line);
-		lineas--;
-	}
-	close(fd);
-	return (0);
 }

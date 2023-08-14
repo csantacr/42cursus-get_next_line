@@ -1,31 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: csantacr <csantacr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/19 15:46:45 by csantacr          #+#    #+#             */
-/*   Updated: 2023/08/14 20:33:25 by csantacr         ###   ########.fr       */
+/*   Created: 2023/08/14 20:32:45 by csantacr          #+#    #+#             */
+/*   Updated: 2023/08/14 20:33:34 by csantacr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "get_next_line.h"
 
-# include <stdlib.h>
-# include <unistd.h>
+#include <stdio.h>
+#include <fcntl.h>
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 100
-# endif
-
-char	*get_next_line(int fd);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strchr(char *str, int c);
-
-size_t	ft_strlen(const char *s);
-
-void	*ft_calloc(size_t count, size_t size);
-
-#endif
+int main(void)
+{
+	char *filename;
+	int fd;
+	int lineas;
+	char	*line;
+	
+	lineas = 7;
+	filename = "test.txt";
+	fd = open(filename, O_RDONLY);
+	while (lineas > 0)
+	{
+		line = get_next_line(fd);
+		printf("line: %s", line);
+		free(line);
+		lineas--;
+	}
+	close(fd);
+	return (0);
+}
