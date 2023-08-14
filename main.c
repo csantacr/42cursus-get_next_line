@@ -6,7 +6,7 @@
 /*   By: csantacr <csantacr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 20:32:45 by csantacr          #+#    #+#             */
-/*   Updated: 2023/08/14 20:33:34 by csantacr         ###   ########.fr       */
+/*   Updated: 2023/08/14 20:38:11 by csantacr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 #include <stdio.h>
 #include <fcntl.h>
 
-int main(void)
+int	main(void)
 {
-	char *filename;
-	int fd;
-	int lineas;
+	char	*filename;
+	int		fd;
+	int		lineas;
 	char	*line;
-	
+
 	lineas = 7;
 	filename = "test.txt";
 	fd = open(filename, O_RDONLY);
