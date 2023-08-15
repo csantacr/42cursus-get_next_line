@@ -6,7 +6,7 @@
 /*   By: csantacr <csantacr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 18:34:02 by csantacr          #+#    #+#             */
-/*   Updated: 2023/08/15 17:57:39 by csantacr         ###   ########.fr       */
+/*   Updated: 2023/08/15 20:25:23 by csantacr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-/* char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	size_t	i;
 	char	*str;
@@ -45,10 +45,11 @@ size_t	ft_strlen(const char *s)
 		i++;
 	}
 	str[i + ft_strlen(s1)] = '\0';
+	free(s1);
 	return (str);
-} */
+}
 
-char	*ft_strjoin(char *stash, char *buffer)
+/* char	*ft_strjoin(char *stash, char *buffer)
 {
 	char	*str;
 	int		i;
@@ -74,7 +75,7 @@ char	*ft_strjoin(char *stash, char *buffer)
 	}
 	free(stash);
 	return (str);
-}
+} */
 
 void	*ft_calloc(size_t count, size_t size)
 {
