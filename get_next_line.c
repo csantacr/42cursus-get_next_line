@@ -6,13 +6,11 @@
 /*   By: csantacr <csantacr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:52:43 by csantacr          #+#    #+#             */
-/*   Updated: 2023/08/14 20:32:34 by csantacr         ###   ########.fr       */
+/*   Updated: 2023/08/15 17:58:16 by csantacr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-#include <stdio.h>
 
 static char	*update_stash(char *stash)
 {
@@ -21,7 +19,6 @@ static char	*update_stash(char *stash)
 	int		j;
 
 	i = 0;
-	printf("stash before update: %s\n", stash);
 	while (stash[i] != '\n' && stash[i] != '\0')
 		i++;
 	if (!stash[i])
@@ -36,9 +33,7 @@ static char	*update_stash(char *stash)
 	j = 0;
 	while (stash[i])
 		ustash[j++] = stash[i++];
-	printf("stash after update:  %s\n", stash);
 	free(stash);
-	printf("ustash after update: %s\n", stash);
 	return (ustash);
 }
 
@@ -66,7 +61,6 @@ static char	*get_line(char *stash)
 	return (line);
 }
 
-
 static char	*get_stash(int fd, char *stash)
 {
 	char	*buffer;
@@ -89,8 +83,6 @@ static char	*get_stash(int fd, char *stash)
 		}
 		buffer[readed] = '\0';
 		stash = ft_strjoin(stash, buffer);
-		printf("buffer: %s ----------------------------------------\n", buffer);
-		printf("stash:  %s\n", stash);
 	}
 	free(buffer);
 	return (stash);

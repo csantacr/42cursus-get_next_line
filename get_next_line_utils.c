@@ -6,7 +6,7 @@
 /*   By: csantacr <csantacr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 18:34:02 by csantacr          #+#    #+#             */
-/*   Updated: 2023/08/14 19:18:44 by csantacr         ###   ########.fr       */
+/*   Updated: 2023/08/15 17:57:39 by csantacr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+/* char	*ft_strjoin(char const *s1, char const *s2)
 {
 	size_t	i;
 	char	*str;
@@ -45,6 +45,34 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		i++;
 	}
 	str[i + ft_strlen(s1)] = '\0';
+	return (str);
+} */
+
+char	*ft_strjoin(char *stash, char *buffer)
+{
+	char	*str;
+	int		i;
+	int		j;
+	int		total;
+
+	total = ft_strlen(stash) + ft_strlen(buffer);
+	str = ft_calloc(sizeof(char), (total + 1));
+	if (!str || !stash || !buffer)
+		return (NULL);
+	i = 0;
+	while (stash[i])
+	{
+		str[i] = stash[i];
+		i++;
+	}
+	j = 0;
+	while (buffer[j])
+	{
+		str[i] = buffer[j];
+		i++;
+		j++;
+	}
+	free(stash);
 	return (str);
 }
 

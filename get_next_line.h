@@ -6,7 +6,7 @@
 /*   By: csantacr <csantacr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:46:45 by csantacr          #+#    #+#             */
-/*   Updated: 2023/08/14 20:33:25 by csantacr         ###   ########.fr       */
+/*   Updated: 2023/08/15 17:57:56 by csantacr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # endif
 
 char	*get_next_line(int fd);
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strchr(char *str, int c);
 
 size_t	ft_strlen(const char *s);
