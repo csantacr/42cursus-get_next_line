@@ -12,56 +12,7 @@
 
 #include "get_next_line.h"
 
-static char	*get_stash(int fd, char *stash)
-{
-	char	*buffer;
-	int		readed;
-
-	if (!stash)
-		stash = ft_calloc(1, sizeof(char));
-	buffer = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
-	if (!buffer)
-		return (0);
-	readed = 1;
-	while (!ft_strchr(stash, '\n') && readed != 0)
-	{
-		readed = read(fd, buffer, BUFFER_SIZE);
-		if (readed == -1)
-		{
-			free(stash);
-			free(buffer);
-			return (0);
-		}
-		buffer[readed] = '\0';
-		stash = ft_strjoin(stash, buffer);
-	}
-	free(buffer);
-	return (stash);
-}
-
-static char	*get_line(char *stash)
-{
-	char	*line;
-	int		i;
-
-	i = 0;
-	if (!stash[i])
-		return (0);
-	while (stash[i] != '\n' && stash[i] != '\0')
-		i++;
-	line = ft_calloc((i + 2), sizeof(char));
-	if (!line)
-		return (0);
-	i = 0;
-	while (stash[i] != '\0' && stash[i] != '\n')
-	{
-		line[i] = stash[i];
-		i++;
-	}
-	if (stash[i] == '\n' && stash[i])
-		line[i] = '\n';
-	return (line);
-}
+#include <stdio.h>
 
 static char	*update_stash(char *stash)
 {
@@ -70,6 +21,7 @@ static char	*update_stash(char *stash)
 	int		j;
 
 	i = 0;
+	printf("stash before update: %s\n", stash);
 	while (stash[i] != '\n' && stash[i] != '\0')
 		i++;
 	if (!stash[i])
@@ -84,8 +36,64 @@ static char	*update_stash(char *stash)
 	j = 0;
 	while (stash[i])
 		ustash[j++] = stash[i++];
+	printf("stash after update:  %s\n", stash);
 	free(stash);
+	printf("ustash after update: %s\n", stash);
 	return (ustash);
+}
+
+static char	*get_line(char *stash)
+{
+	char	*line;
+	int		i;
+
+	i = 0;
+	if (!stash[i])
+		return (NULL);
+	while (stash[i] != '\n' && stash[i] != '\0')
+		i++;
+	line = ft_calloc((i + 2), sizeof(char));
+	if (!line)
+		return (NULL);
+	i = 0;
+	while (stash[i] != '\0' && stash[i] != '\n')
+	{
+		line[i] = stash[i];
+		i++;
+	}
+	if (stash[i] == '\n' && stash[i])
+		line[i] = stash[i];
+	return (line);
+}
+
+
+static char	*get_stash(int fd, char *stash)
+{
+	char	*buffer;
+	int		readed;
+
+	if (!stash)
+		stash = ft_calloc(1, sizeof(char));
+	buffer = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
+	if (!buffer)
+		return (NULL);
+	readed = 1;
+	while (!ft_strchr(buffer, '\n') && readed != 0)
+	{
+		readed = read(fd, buffer, BUFFER_SIZE);
+		if (readed == -1)
+		{
+			free(stash);
+			free(buffer);
+			return (NULL);
+		}
+		buffer[readed] = '\0';
+		stash = ft_strjoin(stash, buffer);
+		printf("buffer: %s ----------------------------------------\n", buffer);
+		printf("stash:  %s\n", stash);
+	}
+	free(buffer);
+	return (stash);
 }
 
 char	*get_next_line(int fd)
@@ -97,7 +105,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	stash = get_stash(fd, stash);
 	if (!stash)
-		return (0);
+		return (NULL);
 	line = get_line(stash);
 	stash = update_stash(stash);
 	return (line);

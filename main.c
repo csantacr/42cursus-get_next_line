@@ -15,6 +15,11 @@
 #include <stdio.h>
 #include <fcntl.h>
 
+void	check_leaks(void)
+{
+	system("leaks a.out");
+}
+
 int	main(void)
 {
 	char	*filename;
@@ -24,11 +29,12 @@ int	main(void)
 
 	lineas = 7;
 	filename = "test.txt";
+	atexit(check_leaks);
 	fd = open(filename, O_RDONLY);
 	while (lineas > 0)
 	{
 		line = get_next_line(fd);
-		printf("line: %s", line);
+		//printf("line: %s", line);
 		free(line);
 		lineas--;
 	}
