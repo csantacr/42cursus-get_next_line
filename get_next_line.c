@@ -34,7 +34,7 @@ static char	*update_stash(char *stash)
 	while (stash[i])
 		ustash[j++] = stash[i++];
 	free(stash);
-	ustash[j] = 0;
+	ustash[j] = '\0';
 	return (ustash);
 }
 
