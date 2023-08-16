@@ -94,12 +94,8 @@ char	*get_next_line(int fd)
 	static char	*stash;
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &line, 0) < 0)
-	{
-		free(stash);
-		stash = NULL;
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	}
 	stash = get_stash(fd, stash);
 	if (!stash)
 		return (NULL);
