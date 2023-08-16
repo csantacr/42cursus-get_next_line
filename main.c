@@ -24,19 +24,19 @@ int	main(void)
 {
 	char	*filename;
 	int		fd;
-	int		lineas;
+	int		lines;
 	char	*line;
 
-	lineas = 7;
+	lines = 7;
 	filename = "test.txt";
 	atexit(check_leaks);
 	fd = open(filename, O_RDONLY);
-	while (lineas > 0)
+	while (lines > 0)
 	{
 		line = get_next_line(fd);
 		printf("def line: \n%s\n", line);
 		free(line);
-		lineas--;
+		lines--;
 	}
 	close(fd);
 	return (0);

@@ -34,6 +34,7 @@ static char	*update_stash(char *stash)
 	while (stash[i])
 		ustash[j++] = stash[i++];
 	free(stash);
+	ustash[j] = 0;
 	return (ustash);
 }
 
@@ -51,7 +52,7 @@ static char	*get_line(char *stash)
 	if (!line)
 		return (NULL);
 	i = 0;
-	while (stash[i] != '\0' && stash[i] != '\n')
+	while (stash[i] != '\n' && stash[i] != '\0')
 	{
 		line[i] = stash[i];
 		i++;
@@ -75,7 +76,7 @@ static char	*get_stash(int fd, char *stash)
 	while (!ft_strchr(buffer, '\n') && readed != 0)
 	{
 		readed = read(fd, buffer, BUFFER_SIZE);
-		if (readed == -1)
+		if (readed < 0)
 		{
 			free(stash);
 			free(buffer);
@@ -93,8 +94,12 @@ char	*get_next_line(int fd)
 	static char	*stash;
 	char		*line;
 
-	if (BUFFER_SIZE <= 0 || fd < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, &line, 0) < 0)
+	{
+		free(stash);
+		stash = NULL;
 		return (NULL);
+	}
 	stash = get_stash(fd, stash);
 	if (!stash)
 		return (NULL);
