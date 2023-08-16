@@ -6,11 +6,11 @@
 /*   By: csantacr <csantacr@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 16:51:22 by csantacr          #+#    #+#             */
-/*   Updated: 2023/08/16 16:51:23 by csantacr         ###   ########.fr       */
+/*   Updated: 2023/08/16 17:38:38 by csantacr         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 void	*ft_calloc(size_t count, size_t size)
 {
