@@ -22,60 +22,24 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin(char *stash, char *buffer)
 {
-	size_t	i;
-	char	*str;
+	char	*ustash;
+	int i;
+	int j;
 
-	if (!s1 || !s2)
-		return (0);
-	str = (char *) malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
-	if (!str)
+	ustash = ft_calloc(sizeof(char), (ft_strlen(stash) + ft_strlen(buffer) + 1));
+	if (!stash || !buffer || !ustash)
 		return (NULL);
-	i = 0;
-	while (i < ft_strlen(s1))
-	{
-		str[i] = s1[i];
-		i++;
-	}
-	i = 0;
-	while (i < ft_strlen(s2))
-	{
-		str[i + ft_strlen(s1)] = s2[i];
-		i++;
-	}
-	str[i + ft_strlen(s1)] = '\0';
-	free(s1);
-	return (str);
-}
-
-/* char	*ft_strjoin(char *stash, char *buffer)
-{
-	char	*str;
-	int		i;
-	int		j;
-	int		total;
-
-	total = ft_strlen(stash) + ft_strlen(buffer);
-	str = ft_calloc(sizeof(char), (total + 1));
-	if (!str || !stash || !buffer)
-		return (NULL);
-	i = 0;
-	while (stash[i])
-	{
-		str[i] = stash[i];
-		i++;
-	}
-	j = 0;
-	while (buffer[j])
-	{
-		str[i] = buffer[j];
-		i++;
-		j++;
-	}
+	i = -1;
+	while (stash[++i])
+		ustash[i] = stash[i];
+	j = -1;
+	while (buffer[++j])
+		ustash[i++] = buffer[j];
 	free(stash);
-	return (str);
-} */
+	return (ustash);
+}
 
 void	*ft_calloc(size_t count, size_t size)
 {
@@ -92,9 +56,9 @@ void	*ft_calloc(size_t count, size_t size)
 	{
 		res[i] = 0;
 		i++;
-	}	
+	}
 	return (res);
-}
+} 
 
 // refactorizar esta función
 char	*ft_strchr(char *str, int c)
@@ -109,7 +73,7 @@ char	*ft_strchr(char *str, int c)
 	while (str[i])
 	{
 		if (str[i] == (char)c)
-			return ((char *)&str[i]);
+			return ((char *) &str[i]);
 		i++;
 	}
 	return (0);

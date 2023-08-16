@@ -12,15 +12,12 @@
 
 #include "get_next_line.h"
 
-#include <stdio.h>
-
 static char	*update_stash(char *stash)
 {
 	char	*ustash;
 	int		i;
 	int		j;
 
-	printf("old stash: %s\n", stash);
 	i = 0;
 	while (stash[i] != '\n' && stash[i] != '\0')
 		i++;
@@ -37,7 +34,6 @@ static char	*update_stash(char *stash)
 	while (stash[i])
 		ustash[j++] = stash[i++];
 	free(stash);
-	printf("new stash: %s\n", ustash);
 	return (ustash);
 }
 
@@ -62,7 +58,6 @@ static char	*get_line(char *stash)
 	}
 	if (stash[i] == '\n' && stash[i])
 		line[i] = stash[i];
-	printf("line: %s\n", line);
 	return (line);
 }
 
@@ -87,9 +82,7 @@ static char	*get_stash(int fd, char *stash)
 			return (NULL);
 		}
 		buffer[readed] = '\0';
-		printf("buffer: %s\n", buffer);
 		stash = ft_strjoin(stash, buffer);
-		printf("stash: %s\n", stash);
 	}
 	free(buffer);
 	return (stash);
